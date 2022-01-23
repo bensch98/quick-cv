@@ -1,5 +1,6 @@
 import sys
-import cv2
+import os
+import cv2 as cv
 import numpy as np
 from enum import Enum
 
@@ -23,7 +24,7 @@ class FunctionHandler:
     self.alive = True
 
   def select_function(self):
-    key = cv2.waitKey(1)
+    key = cv.waitKey(1)
     if key == ord('q') or key == 27:
       self.alive = False
     elif key == ord('s'):
@@ -43,30 +44,30 @@ class FunctionHandler:
     if self.mode == Mode.PREVIEW:
       frame = frame
     elif self.mode == Mode.CANNY:
-      frame = cv2.Canny(frame, 100, 150)
+      frame = cv.Canny(frame, 100, 150)
     elif self.mode == Mode.BLUR:
-      frame = cv2.blur(frame, (13, 13))
+      frame = cv.blur(frame, (13, 13))
     elif self.mode == Mode.COLOR_SPACE:
       frame = self.color_space(frame)
     elif self.mode == Mode.CUSTOM:
       frame = self.color_space(frame)
-      frame = cv2.Canny(frame, 200, 210)
+      frame = cv.Canny(frame, 200, 210)
     if self.save:
       self.save = False
-      cv2.imwrite(f'{self.dest}/frame.jpg', frame)
+      cv.imwrite(f'{self.dest}/frame.jpg', frame)
     return frame
 
   def color_space(self, frame):
     # convert frame from BGR to HSV
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
     # define range of blue color in HSV
     lower = np.array([160, 50, 50])
     upper = np.array([255, 255, 255])
 
     # threshold the HSV frame to get only blue colors
-    mask = cv2.inRange(hsv, lower, upper)
-    res = cv2.bitwise_and(frame, frame, mask=mask)
+    mask = cv.inRange(hsv, lower, upper)
+    res = cv.bitwise_and(frame, frame, mask=mask)
     return res
 
 
@@ -75,10 +76,10 @@ def main():
   if len(sys.argv) > 1:
     s = sys.argv[1]
 
-  source = cv2.VideoCapture(s)
+  source = cv.VideoCapture(s)
 
   win_name = 'Camera'
-  cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+  cv.namedWindow(win_name, cv.WINDOW_NORMAL)
 
   fh = FunctionHandler()
   alive = True
@@ -94,10 +95,10 @@ def main():
     frame = fh.process(frame)
     
     # display image
-    cv2.imshow(win_name, frame)
+    cv.imshow(win_name, frame)
 
   source.release()
-  cv2.destroyWindow(win_name)
+  cv.destroyWindow(win_name)
   
 
 if __name__ == '__main__':
