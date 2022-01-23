@@ -1,3 +1,15 @@
+### Python ###
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# distribution / packaging
+*.egg-info/
+/dist
+
+# Vim
+*.swp
+
 # resources
 *.zip
 *.png
