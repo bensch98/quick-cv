@@ -21,7 +21,7 @@ setup(name='quick-cv',
       license='MIT',
       long_description=long_description,
       long_description_content_type='text/markdown',
-      packages=['quick-cv'],
+      packages=['quickcv'],
       classifiers=CLASSIFIERS,
       install_requirements=INSTALL_REQUIREMENTS,
       python_require='>=3.9')

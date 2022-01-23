@@ -6,17 +6,19 @@ This package is meant for prototyping and testing different functions or feature
 ## Installation
 
 ```bash
-pip install git@github.com:bensch98/git-merge.git
+pip install git+https://github.com/bensch98/quick-cv.git@main
+
 # or
-git clone git@github.com:bensch98/git-merge.git
-pip install setup.py
+git clone git@github.com:bensch98/quick-cv.git
+cd quick-cv
+pip install .
 ```
 
 ## Usage
 
-Just run the [quick-cv/quick-cv.py](quick-cv/quick-cv.py):
+Just run the [quickcv/quick.py](quickcv/quickcv.py):
 ```bash
-python quick.py
+python quickcv.py
 ```
 
 **Commands:**
